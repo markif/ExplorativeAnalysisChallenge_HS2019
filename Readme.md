@@ -50,11 +50,11 @@ exit
 
 # Access the Data
 
-This section describes how to access the data through a Jupyter Notebook and Postgres' console client `psql`.
+This section describes how to access the data through a [Jupyter Notebook](https://jupyter.org/) and Postgres' console client [psql](https://www.postgresql.org/docs/11/app-psql.html) using the [SQL language](https://www.postgresql.org/docs/11/tutorial-sql.html).
 
 ## Environment Startup
 
-You might need to startup the Environment (i.e. after a reboot of your computer).
+You might need to startup the environment (i.e. after a reboot of your computer).
 
 ```bash
 docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_DB=bank_db -e POSTGRES_USER=bank_user -e POSTGRES_PASSWORD=bank_pw -d postgres
@@ -64,7 +64,7 @@ docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_D
 
 Start the docker container that runs a Jupyter Notebook which can be used to access the database (please do not forget to replace `path_to_your_jupyter_files` with the actual path where you want to store the files on your computer - e.g. `$(pwd)` on Linux for your current folder).
 
-Please see the console output for the URL (with token) to use in your browser.
+Please see the console output for the URL (with token) to open in your browser.
 ```bash
 docker run --name datascience-notebook --net=dbnet -p 8888:8888 -v "path_to_your_jupyter_files":/home/jovyan/work -it --rm i4ds/datascience-notebook
 ```
@@ -80,7 +80,7 @@ Use the Jupyter Notebook Check_Data.ipynb to see if the database access works.
 
 ## Postgres Client
 
-Postgres provides a console client that can execute standars SQL queries etc.
+Postgres provides a console client that can execute [SQL queries](https://www.postgresql.org/docs/11/tutorial-select.html) etc.
 
 ```bash
 docker run -it --net=dbnet --rm postgres psql -h 192.168.0.1 -U bank_user -d bank_db
