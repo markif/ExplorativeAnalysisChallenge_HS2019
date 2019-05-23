@@ -1,7 +1,3 @@
-Add dependencies for sql to DatascienceNotebook_I4DS
-
-
-
 The finance data for the explorative analysis challenge is provided through a postgres database running in a Docker container.
 
 Additionally, there is also Docker container image available that contains a Jupyter Notebook which can be used to access the data for the challenge.
@@ -35,8 +31,9 @@ Start the docker container that provides the database
 ```bash
 docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_DB=bank_db -e POSTGRES_USER=bank_user -e POSTGRES_PASSWORD=bank_pw -d postgres
 ```
+Get access to the files provided in this git repository by [downloading](https://github.com/markif/ExplorativeAnalysisChallenge_HS2019/archive/master.zip) or cloning it.
 
-Import the data into the database (please do not forget to replace `path_to_the_sqlc_to_you_want_to_import` with the actual path where the `dbdump.sqlc` file is located you want to import - e.g. `$(pwd)` on linux for your current folder). This is only needed when you started from scratch (first time or after a cleanup).
+Import the data into the database (please do not forget to replace `path_to_the_sqlc_to_you_want_to_import` with the actual path where the `dbdump.sqlc` file is located you want to import - e.g. `$(pwd)` on Linux for your current folder). This step is only needed when you started from scratch (first time or after a cleanup). 
 
 ```bash
 docker run -it --net=dbnet -v "path_to_the_sqlc_to_you_want_to_import":/dump --rm postgres /bin/bash
@@ -49,7 +46,7 @@ exit
 exit
 ```
 
-Start the docker container that runs a Jupyter Notebook which can be used to access the database (please do not forget to replace `path_to_your_jupyter_files` with the actual path where you want to store the files on your computer - e.g. `$(pwd)` on linux for your current folder).
+Start the docker container that runs a Jupyter Notebook which can be used to access the database (please do not forget to replace `path_to_your_jupyter_files` with the actual path where you want to store the files on your computer - e.g. `$(pwd)` on Linux for your current folder).
 
 Please see the console output for the URL (with token) to use in your browser.
 ```bash
@@ -62,6 +59,9 @@ docker run --name datascience-notebook --net=dbnet -p 8888:8888 -v "path_to_your
 # open your browser on http://127.0.0.1:8888
 firefox http://127.0.0.1:8888
 ```
+
+Use the Jupyter Notebook Check_Data.ipynb to see if the database access works.
+
 
 ## Helpful Commands
 
