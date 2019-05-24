@@ -33,7 +33,7 @@ Start the docker container that provides the database
 ```bash
 docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_DB=bank_db -e POSTGRES_USER=bank_user -e POSTGRES_PASSWORD=bank_pw -d postgres
 ```
-Get access to the files provided in this git repository by [downloading](https://github.com/markif/ExplorativeAnalysisChallenge_HS2019/archive/master.zip) or cloning it.
+Get access to the files provided in this git repository by [downloading](archive/master.zip) or cloning it.
 
 Import the data into the database (please do not forget to replace `path_to_the_sqlc_to_you_want_to_import` with the actual path where the `dbdump.sqlc` file is located you want to import - e.g. `$(pwd)` on Linux for your current folder).
 
