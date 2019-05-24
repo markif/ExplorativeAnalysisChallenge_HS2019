@@ -35,7 +35,7 @@ docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_D
 ```
 Get access to the files provided in this git repository by [downloading](https://github.com/markif/ExplorativeAnalysisChallenge_HS2019/archive/master.zip) or cloning it.
 
-Import the data into the database (please do not forget to replace `path_to_the_sqlc_to_you_want_to_import` with the actual path where the `dbdump.sqlc` file is located you want to import - e.g. `$(pwd)` on Linux for your current folder).
+Import the data into the database (please do not forget to replace `path_to_the_sqlc_to_you_want_to_import` with the actual path where the `dbdump.sqlc` file is located you want to import - e.g. `$PWD` on Linux for your current folder).
 
 ```bash
 docker run -it --net=dbnet -v "path_to_the_sqlc_to_you_want_to_import":/dump --rm postgres /bin/bash
@@ -62,7 +62,7 @@ docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_D
 
 ## Jupyter Notebook
 
-Start the docker container that runs a Jupyter Notebook which can be used to access the database (please do not forget to replace `path_to_your_jupyter_files` with the actual path where you want to store the files on your computer - e.g. `$(pwd)` on Linux for your current folder).
+Start the docker container that runs a Jupyter Notebook which can be used to access the database (please do not forget to replace `path_to_your_jupyter_files` with the actual path where you want to store the files on your computer - e.g. `$PWD` on Linux for your current folder).
 
 Please see the console output for the URL (with token) to open in your browser.
 ```bash
