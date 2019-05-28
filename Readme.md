@@ -31,14 +31,14 @@ docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 db
 Start the docker container that provides the database
 
 ```bash
-docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_DB=bank_db -e POSTGRES_USER=bank_user -e POSTGRES_PASSWORD=bank_pw -d postgres
+docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_DB=bank_db -e POSTGRES_USER=bank_user -e POSTGRES_PASSWORD=bank_pw -d postgres:11.3
 ```
 Get access to the files provided in this git repository by [downloading](https://github.com/markif/ExplorativeAnalysisChallenge_HS2019/archive/master.zip) or cloning it.
 
 Import the data into the database (please do not forget to replace `path_to_the_sqlc_to_you_want_to_import` with the actual path where the `dbdump.sqlc` file is located you want to import - e.g. `$PWD` on Linux for your current folder).
 
 ```bash
-docker run -it --net=dbnet -v "path_to_the_sqlc_to_you_want_to_import":/dump --rm postgres /bin/bash
+docker run -it --net=dbnet -v "path_to_the_sqlc_to_you_want_to_import":/dump --rm postgres:11.3 /bin/bash
 # restore the data - the password is bank_pw (see above)
 pg_restore -h 192.168.0.1 -U bank_user -d bank_db --format=c /dump/dbdump.sqlc
 # test if the data is available (SELECT should count 1056320 elements)
@@ -57,7 +57,7 @@ This section describes how to access the data through a [Jupyter Notebook](https
 You might need to startup the environment (i.e. after a reboot of your computer).
 
 ```bash
-docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_DB=bank_db -e POSTGRES_USER=bank_user -e POSTGRES_PASSWORD=bank_pw -d postgres
+docker run --name explorative-analysis-db --net=dbnet -p 5432:5432 -e POSTGRES_DB=bank_db -e POSTGRES_USER=bank_user -e POSTGRES_PASSWORD=bank_pw -d postgres:11.3
 ```
 
 ## Jupyter Notebook
@@ -76,14 +76,27 @@ docker run --name datascience-notebook --net=dbnet -p 8888:8888 -v "path_to_your
 firefox http://127.0.0.1:8888
 ```
 
-Use the Jupyter Notebook Check_Data.ipynb to see if the database access works.
+Use the Jupyter Notebook `Check_Data.ipynb` to see if/how the database access works.
+
+
+## RStudio
+
+Start the docker container that runs an RStudio Server and connect to it using a browser (user: `rstudio` with password: `rstudio_pw`).
+```bash
+docker run --name rstudio --net=dbnet -p 8787:8787 -v "path_to_your_r_files":/home/rstudio/r-files -e PASSWORD=rstudio_pw -it --rm i4ds/rstudio
+# open your browser on http://127.0.0.1:8888
+firefox http://127.0.0.1:8787
+```
+
+Use the R file `Check_Data.R` to see if/how the database access works.
+
 
 ## Postgres Client
 
 Postgres provides a console client that can execute [SQL queries](https://www.postgresql.org/docs/11/tutorial-select.html) etc.
 
 ```bash
-docker run -it --net=dbnet --rm postgres psql -h 192.168.0.1 -U bank_user -d bank_db
+docker run -it --net=dbnet --rm postgres:11.3 psql -h 192.168.0.1 -U bank_user -d bank_db
 # the password is bank_pw (see above)
 # execute SQL queries
 SELECT COUNT(*) FROM trans;
